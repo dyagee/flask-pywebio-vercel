@@ -127,7 +127,7 @@ def main():
         id = input_group('', [input('Student ID:', type=NUMBER,name="id", required=True, placeholder='Enter Student Unique ID')],cancelable=True)
         if id is not None:
             identity = sd.find_one({'id':id['id']})
-            if identity:
+            if identity is not None:
                 #collect the identity of the student
                 toast("ID: %d  Verified Successfully!"%(identity['id']),position='center', color='primary',duration=3)
                 time.sleep(2)
@@ -145,9 +145,10 @@ def main():
         clear("display")
         id = input_group('', [input('Student ID:', type=NUMBER,name="id", required=True, placeholder='Enter Student Unique ID')],cancelable=True)
         if id is not None:
-            identity = sd.find_one({'id':id['id']})
+            id = id['id']
+            identity = sd.find_one({'id':id})
 
-            if identity:
+            if identity is not None:
                 clear("CTA")
                 with use_scope("background"):
                     put_html("<br/><br/>")
@@ -187,7 +188,7 @@ def main():
         #check in report is not empty
         if report is not None:
             #This for the live server only
-            put_warning("Invalid Request: You're not an Admin!",closable=True, scope="display").style("width:80%; margin:10%;")
+            #put_warning("Invalid Request: You're not an Admin!",closable=True, scope="display").style("width:80%; margin:10%;")
             #update the student's records, and also add timestamp to records_time
             if sd.update_many({'id':id},{'$push':{'records':report["report"],'records_time':timeStamp}}):
                 put_success("Report Added successfully!",closable=True, scope="display").style("width:80%; margin:10%;") 
