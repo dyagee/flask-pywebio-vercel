@@ -130,7 +130,7 @@ def main():
             if identity is not None:
                 #collect the identity of the student
                 toast("ID: %d  Verified Successfully!"%(identity['id']),position='center', color='primary',duration=3)
-                time.sleep(2)
+                #time.sleep(2)
                 put_code("Name: %s  Class: %s  Age: %d "%(identity['name'],identity['class'], identity['age']), scope="display").style("text-align:center;")
             else:
                 put_error("ID not Valid!",closable=True, scope="display").style("width:80%; margin:10%;")
